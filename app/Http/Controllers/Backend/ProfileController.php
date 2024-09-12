@@ -39,8 +39,6 @@ class ProfileController extends Controller
             $user->image = $path;
         }
 
-
-
         /* Assign a new value*/
         $user->name = $request->name;
         $user->email = $request->email;
@@ -49,5 +47,19 @@ class ProfileController extends Controller
         return redirect()->back();
 
         //dd($request->all());
+    }
+      /**Update the password**/
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required','current_password'],
+            'password' => ['required','confirmed','min:8'],
+        ]);
+
+        $request->user()->update([
+            'password' => bcrypt($request->password)
+        ]);
+
+        return redirect()->back();
     }
 }
