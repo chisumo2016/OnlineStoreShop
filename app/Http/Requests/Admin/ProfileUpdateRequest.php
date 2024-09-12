@@ -25,6 +25,7 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' =>   ['required' , 'max:100'],
             'email' =>  ['required' , 'email', 'unique:users,email,'.Auth::user()->id],
+            'image' =>  ['image' , 'max:2048'],
         ];
     }
 }
