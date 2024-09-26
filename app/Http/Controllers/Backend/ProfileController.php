@@ -15,13 +15,13 @@ class ProfileController extends Controller
         return view('admin.profile.index');
     }
 
+
     public function update(ProfileUpdateRequest $request)
     {
         /* Get the Current user*/
         $user = Auth::user();
 
-
-        /*Check for image*/
+        /*Check for image in request*/
         if ($request->hasFile('image')){
 
             /*Delete the previous image*/

@@ -28,6 +28,7 @@ Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login'
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' =>'user'  , 'as' => 'user.'], function (){
     Route::get('dashboard', [UserController::class,'index'])->name('dashboard');
     Route::get('profile',   [ProfileController::class,'index'])->name('profile');
+    Route::put('profile',   [ProfileController::class,'update'])->name('profile.update');
 
 });
 

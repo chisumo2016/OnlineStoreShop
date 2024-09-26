@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css')}}">
+
+    <!-- Toastr CSS Libraries -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Template CSS -->
@@ -71,6 +73,8 @@
 <script src=" {{ asset('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
 <script src=" {{ asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
 <script src=" {{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
+
+<!-- JS Toastr CDN -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <!-- Page Specific JS File -->
@@ -80,6 +84,7 @@
 <script src=" {{ asset('backend/assets/js/scripts.js')}}"></script>
 <script src=" {{ asset('backend/assets/js/custom.js')}}"></script>
 
+<!-- Toast Alert JS File -->
 <script>
     @if($errors->any())
         @foreach($errors->all() as $error)

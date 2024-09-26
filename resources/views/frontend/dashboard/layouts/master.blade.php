@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.classycountdown.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/venobox.min.css') }}">
 
+    <!-- Toastr CSS Libraries -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
@@ -99,8 +102,20 @@
 <!--classycountdown js-->
 <script src="{{ asset('frontend/js/jquery.classycountdown.js') }}"></script>
 
+<!-- JS Toastr CDN -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <!--main/custom js-->
 <script src="{{ asset('frontend/js/main.js') }}"></script>
+
+<!-- Show Dynamic Validation  Errorss -->
+<script>
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            toastr.error("{{$error}}")
+      @endforeach
+    @endif
+</script>
 </body>
 
 </html>
