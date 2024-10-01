@@ -14,37 +14,39 @@
                             <h4>Create  Slider</h4>
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <!-- Form-->
+                            <form action="{{ route('admin.slider.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group">
                                     <label>Type</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text"  name="type" value="{{ old('type') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text"  name="title"  value="{{ old('title') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Starting Price</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text"  name="starting_price"  value="{{ old('starting_price') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Button Url</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="btn_url" value="{{ old('btn_url') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Banner</label>
-                                    <input type="file" class="form-control">
+                                    <input type="file"  name="banner"  class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Serial</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text"  name="serial" value="{{ old('serial') }}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputState">Status</label>
-                                    <select id="inputState" class="form-control">
-                                        <option>Active</option>
-                                        <option>Inactive</option>
+                                    <select id="inputState" class="form-control" name="status">
+                                        <option value="1">Active</option>
+                                        <option  value="0">Inactive</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create</button>
