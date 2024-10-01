@@ -15,6 +15,7 @@ class Slider extends Model
         'starting_price',
         'btn_url',
         'serial',
-        'status'
+        'status',
+        'banner'
     ];
 }

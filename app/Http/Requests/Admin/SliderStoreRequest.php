@@ -28,7 +28,7 @@ class SliderStoreRequest extends FormRequest
              'btn_url'   => ['url'],
              'serial'    => ['required','integer'],
              'status'    => ['required'],
-            // 'banner'    => ['required', 'image', 'max:2000']
+             'banner'    => ['required', 'image', 'max:2000']
         ];
     }
 }

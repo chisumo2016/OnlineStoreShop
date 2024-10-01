@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SliderStoreRequest;
 use App\Models\Slider;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
+    use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +32,16 @@ class SliderController extends Controller
      */
     public function store(SliderStoreRequest $request)
     {
-        Slider::create($request->validated());
+        /*Prepare validated data*/
+        $sliderData = $request->validated();
+
+        /*Handle the file  upload*/
+
+        if ($request->hasFile('banner')) {
+            $sliderData['banner'] = $this->uploadImage($request, 'banner', 'uploads');
+        }
+
+        Slider::create( $sliderData);
 
        toastr('Created Successfully', 'success');
 
