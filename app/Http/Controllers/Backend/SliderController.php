@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SliderStoreRequest;
 use App\Models\Slider;
@@ -14,9 +15,10 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SliderDataTable $dataTable)
     {
-        return view('admin.slider.index');
+        return $dataTable->render('admin.slider.index');
+        //return view('admin.slider.index');
     }
 
     /**
