@@ -38,7 +38,7 @@ class SliderController extends Controller
         /*Handle the file  upload*/
 
         if ($request->hasFile('banner')) {
-            $sliderData['banner'] = $this->uploadImage($request, 'banner', 'uploads');
+            $sliderData['banner'] = $this->uploadImage($request, 'banner', 'uploads/sliders');
         }
 
         Slider::create( $sliderData);
