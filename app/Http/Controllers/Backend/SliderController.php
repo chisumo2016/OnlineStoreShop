@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SliderStoreRequest;
+use App\Http\Requests\Admin\SliderUpdateRequest;
 use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
@@ -61,17 +62,41 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Slider $slider)
     {
-        //
+        return view('admin.slider.edit', compact('slider'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update (SliderUpdateRequest $request, Slider $slider)
     {
-        //
+        /*Prepare validated data*/
+
+        $sliderData = $request->validated();
+
+        if ($request->hasFile('banner')) {
+
+//            /*Delete old image if exists*/
+//            if ($slider->banner) {
+//                $this->deleteOldImage($slider->banner);
+//            }
+
+            /*Upload new image*/
+            $sliderData['banner'] = $this->updateImage($request, 'banner', 'uploads/sliders');
+        }
+
+        /*Update the slider record with the new data*/
+            $slider->update($sliderData);
+
+        /*Flash success message using Toastr*/
+        toastr()->success('Slider updated successfully.');
+
+        /*Redirect back to the index page or any other page*/
+        return redirect()->route('admin.slider.index');
+
+
     }
 
     /**
@@ -81,4 +106,17 @@ class SliderController extends Controller
     {
         //
     }
+
+    /**
+     * Optional: Method to delete old image from the server
+     */
+
+//    private function deleteOldImage($imagePath)
+//    {
+//        $imageFullPath = public_path($imagePath);
+//
+//        if (file_exists($imageFullPath)) {
+//            @unlink($imageFullPath); // Delete the old image from storage
+//        }
+//    }
 }
