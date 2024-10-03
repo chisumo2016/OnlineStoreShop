@@ -27,7 +27,7 @@ class SliderDataTable extends DataTable
                 <a href='" . route('admin.slider.edit', $query->id) . "' class='btn btn-primary btn-sm' style='margin-right: 5px;'>
                    <i class='far fa-edit'></i>
                 </a>
-                <a href='" . route('admin.slider.destroy', $query->id) . "' class='btn btn-danger btn-sm'>
+                <a href='" . route('admin.slider.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-item'>
                     <i class='fas fa-trash'></i>
                 </a>
             </div>";

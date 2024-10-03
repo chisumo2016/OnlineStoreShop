@@ -43,6 +43,15 @@
              return $path.'/'.$imageName;
          }
      }
+
+     /*Handle Delete File*/
+     public function deleteImage( $path)
+     {
+         /*Delete the previous image*/
+         if (File::exists(public_path($path))){
+             File::delete(public_path($path));
+         }
+     }
  }
 
 
