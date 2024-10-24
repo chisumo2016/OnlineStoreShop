@@ -28,7 +28,7 @@
 {{--    <div class="wsus__single_slider" style="background: url({{ asset('frontend/images/slider_2.jpg') }});">--}}
 {{--        <div class="wsus__single_slider_text">--}}
 {{--            <h3>new arrivals</h3>--}}
-{{--            <h1>kid's fashion</h1>--}}
+{{--            <h1>kid's fashion Password2005!</h1>--}}
 {{--            <h6>start at $49.00</h6>--}}
 {{--            <a class="common_btn" href="#">shop now</a>--}}
 {{--        </div>--}}
