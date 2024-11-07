@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
+use App\Http\Requests\Admin\CategoryUpateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -55,17 +56,29 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryUpateRequest $request, Category $category)
     {
-        //
+            /*Retrieve validated data*/
+            $data = $request->validated();
+
+            /* Generate a slug based on the updated name, if needed*/
+            $data['slug'] = Str::slug($data['name']);
+
+            /* Update the category with validated data*/
+            $category->update($data);
+
+        toastr('Category updated successfully.', 'success');
+
+        return redirect()->route('admin.category.index');
+
     }
 
     /**
