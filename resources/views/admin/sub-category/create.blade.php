@@ -4,28 +4,28 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Categories</h1>
+            <h1>Sub Categories</h1>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Category</h4>
+                            <h4>Create Sub Category</h4>
                         </div>
                         <div class="card-body">
                             <!-- Form-->
-                            <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.sub-category.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
-                                <!-- Button tag -->
-
                                 <div class="form-group">
-                                    <label>Icon</label>
-                                    <div>
-                                        <button class="btn btn-primary" name="icon"  data-selected-class="btn-danger" data-unselected-class="btn-info" role="iconpicker"></button>
-                                    </div>
-{{--                                    <input type="text"  name="icon" value="{{ old('icon') }}" class="form-control">--}}
+                                    <label for="inputState">category</label>
+                                    <select id="inputState" class="form-control" name="category_id">
+                                        <option  value="1">select</option>
+                                        @foreach($categories as $category)
+                                            <option  value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
