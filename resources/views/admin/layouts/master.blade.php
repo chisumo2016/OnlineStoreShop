@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 
+    <!-- iconpicker CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}">
+
     <!-- Toastr CSS Libraries -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -82,6 +85,9 @@
 
 <!-- JS Sweetalert CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Page Specific JS File iconpicker -->
+<script src="{{ asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')  }}"></script>
 
 <!-- JS Toastr CDN -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
