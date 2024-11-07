@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\SubCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SubCategoryStoreRequest;
+use App\Http\Requests\Admin\SubCategoryUpdateRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -59,17 +60,31 @@ class SubCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SubCategory $subCategory)
     {
-        //
+        $categories = Category::all();
+        return view('admin.sub-category.edit', compact('subCategory' ,'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SubCategoryUpdateRequest $request, SubCategory $subCategory)
     {
-        //
+        // Retrieve validated data
+        $data = $request->validated();
+
+        // Update the subcategory fields
+        $subCategory->update([
+            'category_id' => $data['category_id'],
+            'name' => $data['name'],
+            'slug' => Str::slug($data['name']),
+            'status' => $data['status'],
+        ]);
+
+        toastr('Sub Category updated successfully.', 'success');
+
+        return redirect()->route('admin.sub-category.index');
     }
 
     /**
