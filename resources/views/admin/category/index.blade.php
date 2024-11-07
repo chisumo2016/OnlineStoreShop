@@ -38,6 +38,36 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.change-status' ,function () {
+                    /*Check if our  toggle button is checked  on/off*/
+                    let  isChecked = $(this).is(':checked');
+                        //console.log(isChecked)
+                    /*Grab the dynamic id*/
+                    let id = $(this).data('id');
+                        //console.log(id)
+                    /*send ajax request*/
+                    $.ajax({
+                        url:"{{ route('admin.category.change-status') }}",
+                    method:'PUT',
+                    data:{
+                        status : isChecked,
+                        id:id
+                    },
+                    success: function (data) {
+                        /*Show  the success message from front end*/
+                        toastr.success(data.message)
+                        console.log(data)
+                    },
+                    error:function (xhr, status, error) {
+                        console.log(error)
+                    }
+                })
+            })
+        })
+    </script>
 @endpush
 
 
