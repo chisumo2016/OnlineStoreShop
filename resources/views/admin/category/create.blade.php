@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <label>Icon</label>
                                     <div>
-                                        <button class="btn btn-primary" data-selected-class="btn-danger" data-unselected-class="btn-info" role="iconpicker"></button>
+                                        <button class="btn btn-primary" name="icon"  data-selected-class="btn-danger" data-unselected-class="btn-info" role="iconpicker"></button>
                                     </div>
 {{--                                    <input type="text"  name="icon" value="{{ old('icon') }}" class="form-control">--}}
                                 </div>

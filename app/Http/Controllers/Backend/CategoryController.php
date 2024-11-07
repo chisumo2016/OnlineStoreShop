@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryStoreRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -27,9 +30,18 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        //
+        /* Automatically creates a slug based on the name field*/
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['name']);
+
+        Category::create($data);
+
+        toastr('Category created successfully.', 'success');
+
+        return redirect()->route('admin.category.index');
+
     }
 
     /**
