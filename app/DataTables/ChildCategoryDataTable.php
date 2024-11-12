@@ -22,7 +22,50 @@ class ChildCategoryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'childcategory.action')
+//            ->addColumn('action', 'childcategory.action')
+            ->addColumn('action', function ($query){
+                return "<div class='d-flex justify-content-end'>
+                <a href='" . route('admin.child-category.edit', $query->id) . "' class='btn btn-primary btn-sm' style='margin-right: 5px;'>
+                   <i class='far fa-edit'></i>
+                </a>
+                <a href='" . route('admin.child-category.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-item'>
+                    <i class='fas fa-trash'></i>
+                </a>
+            </div>";
+            })
+
+            ->addColumn('status', function ($query){
+                if ($query->status ==1 ){
+                    $button = '<label class="custom-switch mt-2">
+                        <input type="checkbox"  checked name="custom-switch-checkbox" data-id="'.$query->id.'" class="custom-switch-input change-status">
+                        <span class="custom-switch-indicator"></span>
+
+                      </label>';
+
+                }else{
+                    $button = '<label class="custom-switch mt-2">
+                        <input type="checkbox"   name="custom-switch-checkbox" data-id="'.$query->id.'" class="custom-switch-input change-status">
+                        <span class="custom-switch-indicator"></span>
+
+                      </label>';
+                }
+
+                return $button;
+            })
+
+
+            /*Custom Name*/
+           ->addColumn('category',function ($query){
+                /*Return the relationship*/
+                return $query->category->name;
+            })
+            ->addColumn('sub_category',function ($query){
+                /*Return the relationship*/
+                return $query->subCategory->name;
+            })
+
+            /*Render the HTML*/
+            ->rawColumns(['status','action'])
             ->setRowId('id');
     }
 
@@ -62,15 +105,20 @@ class ChildCategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('name'),
+
+            /*Register custom column*/
+            Column::make('category'),//category_id
+            Column::make('sub_category'), //sub_category_id
+            Column::make('status'),
+
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(100)
+                ->addClass('text-center'),
         ];
     }
 

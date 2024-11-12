@@ -13,8 +13,15 @@ class SubCategory extends Model
 
     protected $fillable = ['category_id', 'name', 'slug', 'status'];
 
+    /* A SubCategory belongs to one Category*/
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /* A SubCategory has many ChildCategories*/
+    public function childCategories()
+    {
+        return $this->hasMany(ChildCategory::class);
     }
 }

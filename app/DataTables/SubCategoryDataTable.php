@@ -32,6 +32,7 @@ class SubCategoryDataTable extends DataTable
                 </a>
             </div>";
             })
+
             ->addColumn('category', function ($query){
                 return $query->category->name; //relationship
             })
