@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ChildCategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ChildCategoryRequest;
+use App\Http\Requests\Admin\ChildCategoryStoreRequest;
 use App\Models\Category;
+use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ChildCategoryController extends Controller
 {
@@ -28,11 +32,22 @@ class ChildCategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.ChildCategoryStoreRequest
      */
-    public function store(Request $request)
+    public function store(ChildCategoryStoreRequest $request)
     {
-        //
+        /* Use validated data from the form request*/
+        $data = $request->validated();
+
+        /*  Add a slug to the data array*/
+        $data['slug'] = Str::slug($data['name']);
+
+        /*  Create a new ChildCategory record with mass assignment*/
+        ChildCategory::create($data);
+
+        toastr('Child Category created successfully.', 'success');
+
+        return redirect()->route('admin.child-category.index');
     }
 
     /**
