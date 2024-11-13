@@ -6,6 +6,7 @@ use App\DataTables\ChildCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ChildCategoryRequest;
 use App\Http\Requests\Admin\ChildCategoryStoreRequest;
+use App\Http\Requests\Admin\ChildCategoryupdateRequest;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\SubCategory;
@@ -61,25 +62,45 @@ class ChildCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ChildCategory $childCategory)
     {
-        //
+        $categories = Category::all();
+        //$childCategory = ChildCategory::findOrFail($id);
+        $subCategories = SubCategory::where('category_id', $childCategory->category_id)->get();
+
+
+        return view('admin.child-category.edit', compact('categories','childCategory','subCategories'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ChildCategoryupdateRequest $request, ChildCategory $childCategory)
     {
-        //
+        /* Retrieve validated data from the request*/
+        $data = $request->validated();
+
+        /* Generate and update the slug*/
+        $data['slug'] = Str::slug($data['name']);
+
+        /* Update the ChildCategory with mass assignment*/
+        $childCategory->update($data);
+
+        toastr('Child Category Updated successfully.', 'success');
+
+        return redirect()->route('admin.child-category.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ChildCategory $childCategory)
     {
-        //
+
+        $childCategory->delete();
+
+        return response(['status' => 'success', 'message' => 'Child Category Deleted successfully']);
     }
 
     /**
