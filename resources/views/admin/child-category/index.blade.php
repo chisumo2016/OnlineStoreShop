@@ -40,6 +40,7 @@
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     <script>
+        /*Code   for checking   status */
         $(document).ready(function () {
             $('body').on('click', '.change-status' ,function () {
                     /*Check if our  toggle button is checked  on/off*/
@@ -50,7 +51,7 @@
                         //console.log(id)
                     /*send ajax request*/
                     $.ajax({
-                        url:"{{ route('admin.sub-category.change-status') }}",
+                        url:"{{ route('admin.child-category.change-status') }}",
                     method:'PUT',
                     data:{
                         status : isChecked,

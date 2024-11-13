@@ -112,4 +112,14 @@ class ChildCategoryController extends Controller
 
         return $subCategories;
     }
+
+    public function changeStatus(Request $request)
+    {
+        $ChildCategory = ChildCategory::findOrFail($request->id);
+        $ChildCategory->status = $request->status == 'true' ? 1 : 0 ; //compare  with  string not boolean type
+
+        $ChildCategory->save();
+
+        return response(['message' => 'Status has  been updated successfully']);
+    }
 }
