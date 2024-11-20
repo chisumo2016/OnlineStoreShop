@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Http\Requests\Admin\CategoryUpateRequest;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CategoryController extends Controller
 {
@@ -85,11 +88,20 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Category $category)
-    {
-        $category->delete();
-
-        return response(['status' => 'success', 'Category deleted successfully']);
+{
+    // Check if the category has any associated subcategories
+    $subCategory = SubCategory::where('category_id', $category->id)->count();
+    if ($subCategory > 0){
+        return response([
+            'status' => 'error',
+            'message' => 'This items contain, sub items for delete this you have to delete the sub items first!'
+        ]);
     }
+    $category->delete();
+
+    return response(['status' => 'success', 'Category deleted successfully']);
+
+}
 
     public function changeStatus(Request $request)
     {
