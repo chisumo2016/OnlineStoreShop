@@ -1,6 +1,12 @@
 @php
-$categories = \App\Models\Category::all();
-//dd($categories->subCategories);
+    $categories = \App\Models\Category::where('status', 1)
+          ->with(['subCategories' => function ($query) {
+            $query->where('status', 1)
+                ->with(['childCategories' => function ($query) {
+                        $query->where('status', 1);
+                    }]);
+        }])->get();
+        //dd($categories->subCategories);
 @endphp
 
 <nav class="wsus__main_menu d-none d-lg-block">
@@ -13,18 +19,20 @@ $categories = \App\Models\Category::all();
                     </div>
                     <ul class="wsus_menu_cat_item show_home toggle_menu">
                         <li><a href="#"><i class="fas fa-star"></i> hot promotions</a></li>
-                         @foreach($categories as $category)
-                            <li><a class="{{ count($category->subCategories )> 0 ? 'wsus__droap_arrow' : ''  }}" href="#"><i class=" {{ $category->icon }}"></i>{{ $category->name }}</a>
-                            {{--   Sub Category      --}}
+                        @foreach($categories as $category)
+                            <li><a class="{{ count($category->subCategories )> 0 ? 'wsus__droap_arrow' : ''  }}"
+                                   href="#"><i class=" {{ $category->icon }}"></i>{{ $category->name }}</a>
+                                {{--   Sub Category      --}}
                                 @if( count($category->subCategories)  > 0 )
                                     <ul class="wsus_menu_cat_droapdown">
                                         @foreach($category->subCategories as $subCategory)
-                                            <li><a href="#">{{ $subCategory->name }} <i class="{{ count($subCategory->childCategories) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
+                                            <li><a href="#">{{ $subCategory->name }} <i
+                                                        class="{{ count($subCategory->childCategories) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
                                                 {{--   Child  Category      --}}
                                                 @if(count($subCategory->childCategories) > 0)
                                                     <ul class="wsus__sub_category">
                                                         @foreach($subCategory->childCategories as $childCategory)
-                                                            <li><a href="#">{{ $childCategory->name }}</a> </li>
+                                                            <li><a href="#">{{ $childCategory->name }}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
@@ -33,7 +41,7 @@ $categories = \App\Models\Category::all();
                                     </ul>
                                 @endif
                             </li>
-                         @endforeach
+                        @endforeach
 
                         <li><a href="#"><i class="fal fa-gem"></i> View All Categories</a></li>
                     </ul>
