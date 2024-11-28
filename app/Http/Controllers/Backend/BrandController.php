@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\BrandDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBrandRequest;
+use App\Http\Requests\Admin\UpdateBrandRequest;
 use App\Models\Brand;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Termwind\render;
 
@@ -66,17 +68,38 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Brand $brand)
     {
-        //
+        return  view('admin.brand.edit', compact('brand'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        //
+        /* Get validated data from the request*/
+        $data = $request->validated();
+
+        /* Automatically creates a slug based on the name field*/
+        $data['slug'] = Str::slug($data['name']);
+
+        /*Handle the file  upload*/
+        if ($request->hasFile('logo')) {
+
+            /*delete the old logo file*/
+            if ($brand->logo) {
+                Storage::disk('public')->delete($brand->logo);
+            }
+            $data['logo'] = $this->updateImage($request, 'logo', 'uploads', $brand->logo);
+        }
+
+        $brand->update($data);
+
+        toastr('Brand updated successfully.', 'success');
+
+        return redirect()->route('admin.brand.index');
+
     }
 
     /**
