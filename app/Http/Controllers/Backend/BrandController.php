@@ -105,8 +105,26 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Brand $brand)
     {
-        //
+        /*Check if the brand has an associated logo and delete it*/
+        $this->deleteImage($brand->logo);
+
+        /*Delete the brand record DB*/
+        $brand->delete();
+
+        /*Return a success response*/
+        return response(['status' => 'success', 'Brand deleted successfully.']);
+
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $brand = Brand::findOrFail($request->id);
+        $brand->status = $request->status === 'true' ? 1 : 0 ; //compare  with  string not boolean type
+
+        $brand->save();
+
+        return response(['message' => 'Status has  been updated successfully']);
     }
 }

@@ -39,6 +39,7 @@
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
+        {{-- Code to change our status   --}}
     <script>
         $(document).ready(function () {
             $('body').on('click', '.change-status' ,function () {
