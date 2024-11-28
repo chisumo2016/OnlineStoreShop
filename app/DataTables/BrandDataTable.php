@@ -22,7 +22,51 @@ class BrandDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'brand.action')
+            ->addColumn('action', function ($query){
+                return "<div class='d-flex justify-content-end'>
+                <a href='" . route('admin.brand.edit', $query->id) . "' class='btn btn-primary btn-sm' style='margin-right: 5px;'>
+                   <i class='far fa-edit'></i>
+                </a>
+                <a href='" . route('admin.brand.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-item'>
+                    <i class='fas fa-trash'></i>
+                </a>
+            </div>";
+            })
+
+            ->addColumn('logo', function ($query){
+                return "<img src='" . asset($query->logo) . "' alt='Logo Image' width='100'/>";
+            })
+            ->addColumn('is_featured' , function ($query){
+                $active = '<i class="badge badge-success"> Yes</i>';
+                $inactive = '<i class="badge badge-danger"> No</i>';
+                if ($query->is_featured == 1){
+                    return  $active;
+                }else{
+                    return  $inactive;
+                }
+            })
+
+            ->addColumn('status', function ($query){
+                if ($query->status ==1 ){
+                    $button = '<label class="custom-switch mt-2">
+                        <input type="checkbox"  checked name="custom-switch-checkbox" data-id="'.$query->id.'" class="custom-switch-input change-status">
+                        <span class="custom-switch-indicator"></span>
+
+                      </label>';
+
+                }else{
+                    $button = '<label class="custom-switch mt-2">
+                        <input type="checkbox"   name="custom-switch-checkbox" data-id="'.$query->id.'" class="custom-switch-input change-status">
+                        <span class="custom-switch-indicator"></span>
+
+                      </label>';
+                }
+
+                return $button;
+            })
+
+            /*Register our new Column*/
+            ->rawColumns(['logo','is_featured', 'status','action'])
             ->setRowId('id');
     }
 
@@ -44,7 +88,7 @@ class BrandDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -62,15 +106,18 @@ class BrandDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('logo')->width(200),
+            Column::make('name')->width(300),
+            Column::make('is_featured'),
+            Column::make('status'),
+
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
         ];
     }
 
