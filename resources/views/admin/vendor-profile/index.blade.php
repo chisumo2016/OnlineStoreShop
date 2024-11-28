@@ -15,24 +15,30 @@
                         </div>
                         <div class="card-body">
                             <!-- Form-->
-                            <form action="{{ route('admin.vendor-profile.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.vendor-profile.update',$profile) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input type="text"  name="phone"  value="{{ old('phone') }}" class="form-control">
+                                    <input type="text"  name="phone"  value="{{ $profile->phone }}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email"  name="email"  value="{{ old('email') }}"  class="form-control">
+                                    <input type="email"  name="email"  value="{{ $profile->email }}"  class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text"  name="address"  value="{{ old('address') }}"  class="form-control">
+                                    <input type="text"  name="address"  value="{{ $profile->address }}"  class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea class="summernote" name="description"></textarea>
+                                    <textarea class="summernote" name="description">{{ $profile->description }}</textarea>
 
+                                </div>
+                                <div class="form-group">
+                                    <label>Preview</label>
+                                    <br>
+                                    <img src="{{ asset($profile->banner) }}" alt="" width="100">
                                 </div>
                                 <div class="form-group">
                                     <label>Banner</label>
@@ -40,26 +46,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Facebook</label>
-                                    <input type="text"  name="fb_link"  value="{{ old('fb_link') }}" class="form-control">
+                                    <input type="text"  name="fb_link"  value="{{ $profile->fb_link}}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Twitter</label>
-                                    <input type="text"  name="tw_link"  value="{{ old('tw_link') }}" class="form-control">
+                                    <input type="text"  name="tw_link"  value="{{ $profile->tw_link }}" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Instagram</label>
-                                    <input type="text"  name="insta_link" value="{{ old('insta_link') }}" class="form-control">
+                                    <input type="text"  name="insta_link" value="{{ $profile->insta_link}}" class="form-control">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="inputState">Status</label>
-                                    <select id="inputState" class="form-control" name="status">
-                                        <option value="1">Active</option>
-                                        <option  value="0">Inactive</option>
-                                    </select>
-                                </div>
+
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form>
                         </div>

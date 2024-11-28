@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Vendor extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'banner',
+        'email',
+        'phone',
+        'address',
+        'description',
+        'fb_link',
+        'tw_link',
+        'insta_link',
+    ];
 }
