@@ -34,7 +34,7 @@ return new class extends Migration
             $table->boolean('is_top')->nullable(); //show top
             $table->boolean('is_best')->nullable();
             $table->boolean('is_featured')->nullable();
-            $table->integer('is_approved')->default(0); //vendor create  a  product, admin has to approved
+            $table->integer('is_approved')->default(0); //vendor create  a  product, admin has to approved DONE BACKEND
 
             $table->date('offer_start_date')->nullable();
             $table->date('offer_end_date')->nullable();

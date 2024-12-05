@@ -12,12 +12,14 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/fontawesome/css/all.min.css')}}">
 
     <!-- CSS Libraries -->
+
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/jqvmap/dist/jqvmap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css')}}">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
 
     <!-- iconpicker CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}">
@@ -98,6 +100,7 @@
 <!-- Template JS File -->
 <script src=" {{ asset('backend/assets/js/scripts.js')}}"></script>
 <script src=" {{ asset('backend/assets/js/custom.js')}}"></script>
+<script src=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
 
 
