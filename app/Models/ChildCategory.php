@@ -28,5 +28,10 @@ class ChildCategory extends Model
         return $this->hasOneThrough(Category::class, SubCategory::class, 'id', 'id', 'sub_category_id', 'category_id');
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'child_category_id');
+    }
+
 
 }

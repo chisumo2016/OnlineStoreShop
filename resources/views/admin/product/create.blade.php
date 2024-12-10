@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Create  Slider</h4>
+                        <h4>Create  Product</h4>
                     </div>
                     <div class="card-body">
                         <!-- Form-->
@@ -21,10 +21,6 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text"  name="name"  value="{{ old('name') }}" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Starting Price</label>
-                                <input type="text"  name="starting_price"  value="{{ old('starting_price') }}" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Thumb Image</label>
@@ -68,7 +64,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="inputState">Brand</label>
-                                            <select id="inputState" class="form-control child-category" name="brand_id">
+                                            <select id="inputState" class="form-control" name="brand_id">
                                                 <option value="">Select</option>
                                                 @foreach ($brands as $brand)
                                                     <option value="{{$brand->id}}">{{$brand->name}}</option>

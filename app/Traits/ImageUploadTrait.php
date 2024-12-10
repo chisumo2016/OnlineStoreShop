@@ -9,6 +9,11 @@
  {
    public  function  uploadImage(Request $request, $inputName , $path)
    {
+
+//       if ($request->hasFile($inputName)) {
+//           $image = $request->file($inputName);
+//           dd($image); // Debug the file object
+//       }
        /*Check for image in request*/
        if ($request->hasFile($inputName)){
 
@@ -21,6 +26,7 @@
            /*Return file path*/
            return $path.'/'.$imageName;
        }
+       return  null;
    }
 
 
@@ -42,6 +48,8 @@
              /*Return file path*/
              return $path.'/'.$imageName;
          }
+
+
      }
 
      /*Handle Delete File*/
