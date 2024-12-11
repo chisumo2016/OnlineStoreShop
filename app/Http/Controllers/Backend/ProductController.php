@@ -44,18 +44,18 @@ class ProductController extends Controller
        /*Validate the request using ProductRequest*/
         $data = $request->validated();
 
+        //dd($data);
+
         /*Handle Image Upload*/
-        $imagePath = $this->uploadImage($request, 'thumb_image', 'uploads');
+        if ($request->hasFile('thumb_image')){
 
-
-        /*Validate image upload*/
-        if (!$imagePath) {
-            toastr('Failed to upload image.', 'error');
-            return redirect()->back()->withInput();
+            $imagePath = $this->uploadImage($data['thumb_image'], 'thumb_image', 'uploads/product');
+            $data['thumb_image'] = $imagePath;
         }
 
+
         /*Add additional fields that are not part of the form*/
-        $data['thumb_image'] = $imagePath;
+
         $data['slug'] = Str::slug($data['name']);
         $data['vendor_id'] = Auth::user()->vendor->id; // Assuming the user has a vendor relationship
         $data['is_approved'] = 1; // Default to approved

@@ -30,10 +30,8 @@ return new class extends Migration
             $table->text('video_link')->nullable();
             $table->string('sku')->nullable();
             $table->double('offer_price')->nullable();
+            $table->string('product_type')->nullable();
 
-            $table->boolean('is_top')->nullable(); //show top
-            $table->boolean('is_best')->nullable();
-            $table->boolean('is_featured')->nullable();
             $table->integer('is_approved')->default(0); //vendor create  a  product, admin has to approved DONE BACKEND
 
             $table->date('offer_start_date')->nullable();
