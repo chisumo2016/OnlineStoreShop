@@ -4,29 +4,23 @@
 
  use Illuminate\Http\Request;
  use  File;
+ use Illuminate\Http\UploadedFile;
 
  trait ImageUploadTrait
+
  {
-   public  function  uploadImage(Request $request, $inputName , $path)
+   public  function  uploadImage(UploadedFile $image, $inputName , $path)
    {
 
-//       if ($request->hasFile($inputName)) {
-//           $image = $request->file($inputName);
-//           dd($image); // Debug the file object
-//       }
-       /*Check for image in request*/
-       if ($request->hasFile($inputName)){
-
-           $image = $request->{$inputName};
            $extension =  $image->getClientOriginalExtension(); //getClientOriginalName();
            $imageName ='media_'.uniqid().'.'.$extension; // rand().'_'.
-
-           $image->move(public_path($path), $imageName);
+           return $image->storePubliclyAs('products', $imageName , [
+               'disk' => 'public'
+           ]);
+           //$image->move(public_path($path), $imageName);
 
            /*Return file path*/
            return $path.'/'.$imageName;
-       }
-       return  null;
    }
 
 
