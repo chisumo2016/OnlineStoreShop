@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
+use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -91,9 +92,38 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('thumb_image')) {
+            $this->updateImage(
+                /*Instance of model*/
+                $product,
+                /*The uploaded file*/
+                $request->file('thumb_image'),
+                /*Path to store the image*/
+                'uploads/products',
+                'thumb_image'
+            );
+        }
+
+        /*Generate slug from name*/
+        if (isset($data['name'])) {
+            $data['slug'] = \Str::slug($data['name']);
+        }
+
+        /*Remove thumb_image from data to prevent mass assignment conflict*/
+        /*since it's handled separately*/
+        unset($data['thumb_image']);
+
+        /*since it's handled separately*/
+        $product->update($data);
+
+        /*Flash success message and redirect*/
+        toastr('Product updated successfully!', 'success');
+
+        return redirect()->route('admin.product.index');
     }
 
     /**

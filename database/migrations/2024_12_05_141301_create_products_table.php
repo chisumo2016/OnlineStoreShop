@@ -39,8 +39,8 @@ return new class extends Migration
 
             $table->foreignId('vendor_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('sub_category_id')->default(0)->constrained()->onDelete('cascade');
-            $table->foreignId('child_category_id')->default(0)->constrained()->onDelete('cascade');
+            $table->foreignId('sub_category_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('child_category_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
