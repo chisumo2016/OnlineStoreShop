@@ -23,10 +23,10 @@ class ProductDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.sub-category.edit', $query->id) . "' class='btn btn-primary btn-sm' style='margin-right: 5px;'>
+                $editBtn = "<a href='" . route('admin.product.edit', $query->id) . "' class='btn btn-primary btn-sm' style='margin-right: 5px;'>
                    <i class='far fa-edit'></i></a>";
 
-                $deleteBtn = "<a href='" . route('admin.sub-category.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-item' style='margin-right: 5px;'>
+                $deleteBtn = "<a href='" . route('admin.product.destroy', $query->id) . "' class='btn btn-danger btn-sm delete-item' style='margin-right: 5px;'>
                     <i class='fas fa-trash'></i></a>";
 
                 $moreBtn = '<div class="dropdown dropleft show">

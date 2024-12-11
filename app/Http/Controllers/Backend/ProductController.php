@@ -79,9 +79,13 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        $subCategories = SubCategory::where('category_id', $product->category_id)->get();
+        $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
+        $brands = Brand::all();
+        return view('admin.product.edit', compact('product','categories','brands', 'subCategories','childCategories'));
     }
 
     /**
