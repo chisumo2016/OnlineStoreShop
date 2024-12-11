@@ -31,6 +31,7 @@ class SubCategoryDataTable extends DataTable
                     <i class='fas fa-trash'></i>
                 </a>
             </div>";
+
             })
 
             ->addColumn('category', function ($query){
@@ -55,7 +56,7 @@ class SubCategoryDataTable extends DataTable
 
                 return $button;
             })
-            ->rawColumns(['status','action'])
+            ->rawColumns(['status','action','tes'])
             ->setRowId('id');
     }
 
