@@ -42,6 +42,25 @@
          });
      }
 
+     /**
+      * Upload Multiple Images
+      *
+      * @param array $files Array of UploadedFile objects
+      * @param string $path Directory path to store the files
+      * @param string $disk Storage disk (default: 'public')
+      * @return array Array of file paths
+      */
+     public function uploadMultipleImages(array $files, string $path, string $disk = 'public'): array
+     {
+         $paths = [];
+
+         foreach ($files as $file) {
+             $paths[] = $this->uploadImage($file, $path, $disk);
+         }
+
+         return $paths;
+     }
+
 
 //     public  function  updateImage(Request $request, $inputName , $path , $oldPath=null)
 //     {

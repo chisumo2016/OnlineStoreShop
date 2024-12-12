@@ -17,21 +17,21 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Upload Image</h4>
+                            <h4>Product Name: {{ $product->name }}</h4>
                         </div>
                         <div class="card-body">
-                            <form action="" enctype="multipart/form-data">
+                            <form action="{{ route('admin.product-image-gallery.store') }}" method="POST"   enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group">
                                     <label for="">Image <code>(Multiple Image Supported)</code></label>
-                                    <input type="file" name="" class="form-control">
+                                    <input type="file" name="image[]" class="form-control" multiple>
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 </div>
-
                                 <button type="submit" class="btn  btn-primary">Upload</button>
                             </form>
                         </div>
                     </div>
                 </div>
-
             </div>
 
 
@@ -45,12 +45,9 @@
                             <!-- Rendering with DATATABLE  -->
                             {{ $dataTable->table() }}
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section>
 @endsection

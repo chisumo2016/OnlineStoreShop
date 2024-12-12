@@ -4,16 +4,21 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductImageGalleryDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\ProductImageGallery;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class ProductImageGalleryController extends Controller
 {
+    use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductImageGalleryDataTable $dataTable)
+    public function index(Request $request, ProductImageGalleryDataTable $dataTable)
     {
-        return $dataTable->render('admin.product.image-gallery.index');
+        $product = Product::findOrFail($request->product);
+        return $dataTable->render('admin.product.image-gallery.index', compact('product'));
     }
 
     /**
@@ -29,7 +34,26 @@ class ProductImageGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image.*' => ['required','image','max:2048'], //array  of image
+        ]);
+
+        $data = [
+            'product_id' => $request->input('product_id'), // Associate images with a product
+        ];
+
+        /*Handle multiple image uploads*/
+        if ($request->hasFile('image')) {
+            $imagePaths = $this->uploadMultipleImages($request->file('image'), 'uploads/products');
+
+            // Store the image paths as a JSON array in the database
+            $data['image'] = json_encode($imagePaths);
+        }
+
+        ProductImageGallery::create($data);
+
+        toastr('Product Multiple created successfully!', 'success');
+        return redirect()->back();
     }
 
     /**
