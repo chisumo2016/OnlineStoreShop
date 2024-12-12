@@ -35,13 +35,13 @@ class ProductDataTable extends DataTable
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                     <a class="dropdown-item has-icon" href="'.route('admin.product-image-gallery.index',['product' => $query->id]).'"><i class="far fa-heart"></i>Image Gallery</a>
-                    <a class="dropdown-item has-icon" href="#"><i class="far fa-file"></i> Another action</a>
+                    <a class="dropdown-item has-icon" href="'.route('admin.variant.index').'"><i class="far fa-file"></i>variants</a>
                     <a class="dropdown-item has-icon" href="#"><i class="far fa-clock"></i> Something else here</a>
                   </div>
                 </div>';
 
                 // Wrap buttons in a flex container
-                return "<div class='d-flex align-items-center'>" . $editBtn . $deleteBtn . $moreBtn . "</div>";
+                return "<div class='d-flex align-items-center'>".$editBtn.$deleteBtn.$moreBtn."</div>";
             })
 
             ->addColumn('image', function ($query){

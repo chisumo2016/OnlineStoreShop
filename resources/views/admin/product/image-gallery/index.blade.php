@@ -11,7 +11,9 @@
                 <div class="breadcrumb-item">Table</div>
             </div>
         </div>
-
+       <div class="mb-3">
+           <a href="{{ route('admin.product.index') }}" class="btn btn-primary">Back</a>
+       </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
