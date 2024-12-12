@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('product_image_galleries', function (Blueprint $table) {
             $table->id();
-            $table->json('image');// To store multiple image paths
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->text('image');// To store multiple image paths
+            $table->integer('product_id');
+            //$table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

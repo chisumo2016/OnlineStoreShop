@@ -61,6 +61,27 @@
          return $paths;
      }
 
+     /*Handle Delete File*/
+     public function deleteImage(string $path)
+     {
+
+         /*Delete the previous image*/
+         if (File::exists(public_path($path))){ //storage_path
+             File::delete(public_path($path));
+         }
+     }
+
+//     public function deleteImage(string $path, string $disk = 'public'): bool
+//     {
+//         $fullPath = storage_path("app/{$disk}/{$path}");
+//
+//         if (File::exists($fullPath)) {
+//             return File::delete($fullPath);
+//         }
+//
+//         return false;
+//     }
+
 
 //     public  function  updateImage(Request $request, $inputName , $path , $oldPath=null)
 //     {
@@ -86,14 +107,7 @@
 //
 //     }
 
-     /*Handle Delete File*/
-     public function deleteImage( $path)
-     {
-         /*Delete the previous image*/
-         if (File::exists(public_path($path))){
-             File::delete(public_path($path));
-         }
-     }
+
  }
 
 

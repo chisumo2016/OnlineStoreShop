@@ -46,7 +46,8 @@ class BrandController extends Controller
         /*Handle the file  upload*/
 
         if ($request->hasFile('logo')) {
-            $data['logo'] = $this->uploadImage($request, 'logo', 'uploads');
+            //$data['logo'] = $this->uploadImage($request, 'logo', 'uploads');
+            $data['logo'] = $this->uploadImage($data['logo'], 'logo', 'uploads/product');
         }
 
         Brand::create($data);

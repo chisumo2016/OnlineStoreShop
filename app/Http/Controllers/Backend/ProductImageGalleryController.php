@@ -36,6 +36,7 @@ class ProductImageGalleryController extends Controller
     {
         $request->validate([
             'image.*' => ['required','image','max:2048'], //array  of image
+            'product_id' => ['required', 'exists:products,id'],
         ]);
 
         $data = [
@@ -44,13 +45,18 @@ class ProductImageGalleryController extends Controller
 
         /*Handle multiple image uploads*/
         if ($request->hasFile('image')) {
-            $imagePaths = $this->uploadMultipleImages($request->file('image'), 'uploads/products');
+            // Upload multiple images and get their paths
+                $imagePaths = $this->uploadMultipleImages($request->file('image'), 'uploads/products');
 
-            // Store the image paths as a JSON array in the database
-            $data['image'] = json_encode($imagePaths);
+                // Create a record for each image
+                foreach ($imagePaths as $imagePath) {
+                    ProductImageGallery::create([
+                        'product_id' => $request->input('product_id'),
+                        'image' => $imagePath,
+                    ]);
+                }
         }
 
-        ProductImageGallery::create($data);
 
         toastr('Product Multiple created successfully!', 'success');
         return redirect()->back();
@@ -83,8 +89,15 @@ class ProductImageGalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ProductImageGallery $productImageGallery)
     {
-        //
+        //$imageGallery = ProductImageGallery::findOrFail($id);
+        // Delete the associated image file
+        $this->deleteImage($productImageGallery->image);
+
+        // Delete the database record
+        $productImageGallery->delete();
+
+        return response(['status' => 'success', 'message' => 'Image deleted successfully'], 200);
     }
 }

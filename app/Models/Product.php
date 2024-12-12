@@ -77,5 +77,10 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function imageGallery(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductImageGallery::class);
+    }
 }
 
